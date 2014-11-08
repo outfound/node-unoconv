@@ -29,20 +29,41 @@ unoconv.convert = function(file, outputFormat, options, callback) {
     }
 
     args = [
-        '-f' + outputFormat,
-        '--stdout'
+        '-f' + outputFormat
     ];
 
-    if (options && options.port) {
-        args.push('-p' + options.port)
+    if (options) {
+        if (options.port) {
+            args.push('-p' + options.port)
+        }
+        if (options.verbose) {
+            args.push('-v');
+        }
+        if (options.output) {
+            args.push('--output');
+            args.push(options.output);
+        }
+        if (options.doctype) {
+            args.push('-d' + options.doctype);
+        }
+        if (options.exportStr) {
+            args.push('-e' + options.exportStr);
+        }
+        if (options.nolaunch) {
+            args.push('-n');
+        }
+        if (options.template) {
+            args.push('-t' + options.template);
+        }
+        if (options.timeout) {
+            args.push('-T' + options.timeout);
+        }
     }
-
     args.push(file);
 
     if (options && options.bin) {
         bin = options.bin;
     }
-
     child = childProcess.spawn(bin, args, function (err, stdout, stderr) {
         if (err) {
             return callback(err);
@@ -63,8 +84,8 @@ unoconv.convert = function(file, outputFormat, options, callback) {
         stderr.push(data);
     });
 
-    child.on('exit', function () {
-        if (stderr.length) {
+    child.on('exit', function (code, signal) {
+        if (code !== 0 && stderr.length) {
             return callback(new Error(Buffer.concat(stderr).toString()));
         }
 

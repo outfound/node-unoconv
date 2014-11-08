@@ -61,3 +61,9 @@ This function parses the output of `unoconv --show` to attempt to detect support
 
 `callback` gets the arguments `err` and `result`. `result` is an object containing a collection of supported document types and output formats.
 
+## API
+
+### 0.1.3 (Nov 7, 2014)
+
+* Support for more unoconv options
+* Bug fix: Error will be based on return code from spawn instead of data in stderr

@@ -1,8 +1,8 @@
 {
     "name": "unoconv",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "description": "Wrapper for converting documents with unoconv.",
-    "homepage": "https://github.com/gfloyd/node-unoconv",
+    "homepage": "https://github.com/colearnr/node-unoconv",
     "author": {
         "name": "Graham Floyd",
         "email": "grahamf@gmail.com"
@@ -10,7 +10,7 @@
     "main": "./index",
     "repository": {
         "type": "git",
-        "url": "https://github.com/gfloyd/node-unoconv.git"
+        "url": "https://github.com/colearnr/node-unoconv.git"
     },
     "keywords": [
         "unoconv",
