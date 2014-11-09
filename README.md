@@ -63,6 +63,10 @@ This function parses the output of `unoconv --show` to attempt to detect support
 
 ## API
 
+### 0.1.4 (Nov 9, 2014)
+
+* Support for pidfile argument
+
 ### 0.1.3 (Nov 7, 2014)
 
 * Support for more unoconv options

@@ -43,6 +43,9 @@ unoconv.convert = function(file, outputFormat, options, callback) {
             args.push('--output');
             args.push(options.output);
         }
+        if (options.stdout) {
+            args.push('--stdout');
+        }
         if (options.doctype) {
             args.push('-d' + options.doctype);
         }
@@ -57,6 +60,10 @@ unoconv.convert = function(file, outputFormat, options, callback) {
         }
         if (options.timeout) {
             args.push('-T' + options.timeout);
+        }
+        if (options.pidfile) {
+            args.push('--pidfile');
+            args.push(options.pidfile);
         }
     }
     args.push(file);
