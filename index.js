@@ -77,7 +77,7 @@ unoconv.convert = function(file, outputFormat, options, callback) {
         }
 
         if (stderr) {
-            return callback(new Error(stderr.toString()));
+            return callback(new Error(stderr.toString()), stdout);
         }
 
         callback(null, stdout);
@@ -93,11 +93,13 @@ unoconv.convert = function(file, outputFormat, options, callback) {
 
     child.on('exit', function (code, signal) {
         if (code !== 0 && stderr.length) {
-            return callback(new Error(Buffer.concat(stderr).toString()));
+            return callback(new Error(Buffer.concat(stderr).toString()), Buffer.concat(stdout));
         }
 
         callback(null, Buffer.concat(stdout));
     });
+
+    return child;
 };
 
 /**
@@ -208,3 +210,4 @@ unoconv.detectSupportedFormats = function (options, callback) {
         callback(null, detectedFormats);
     });
 };
+
