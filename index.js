@@ -71,17 +71,8 @@ unoconv.convert = function(file, outputFormat, options, callback) {
     if (options && options.bin) {
         bin = options.bin;
     }
-    child = childProcess.spawn(bin, args, function (err, stdout, stderr) {
-        if (err) {
-            return callback(err);
-        }
 
-        if (stderr) {
-            return callback(new Error(stderr.toString()), stdout);
-        }
-
-        callback(null, stdout);
-    });
+    child = childProcess.spawn(bin, args);
 
     child.stdout.on('data', function (data) {
         stdout.push(data);
@@ -91,7 +82,7 @@ unoconv.convert = function(file, outputFormat, options, callback) {
         stderr.push(data);
     });
 
-    child.on('exit', function (code, signal) {
+    child.on('close', function (code) {
         if (code !== 0 && stderr.length) {
             return callback(new Error(Buffer.concat(stderr).toString()), Buffer.concat(stdout));
         }
